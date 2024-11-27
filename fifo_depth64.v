@@ -1,6 +1,5 @@
 // Created by prof. Mingu Kang @VVIP Lab in UCSD ECE department
 // Please do not spread this code without permission 
-`include "fifo_mux_16_1.v"
 
 module fifo_depth64 (rd_clk, wr_clk, in, out, rd, wr, o_full, o_empty, reset);
 
