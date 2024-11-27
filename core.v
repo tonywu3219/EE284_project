@@ -17,31 +17,29 @@ module core #(
 
     // Input SRAM signals (for weights and activations)
     wire [10:0] input_sram_addr;
-    wire input_sram_cen, input_sram_wen;
     wire [31:0] input_sram_din, input_sram_dout;
 
     // Accumulation SRAM signals
     wire [10:0] acc_sram_addr;
-    wire acc_sram_cen, acc_sram_wen;
-    wire [31:0] acc_sram_din, acc_sram_dout;
+    wire [127:0] acc_sram_din, acc_sram_dout;
 
     // Input SRAM (for weights and activations)
     sram_input input_sram (
         .CLK(clk),
-        .A(input_sram_addr),
-        .CEN(input_sram_cen),
-        .WEN(input_sram_wen),
+        .A(inst[17:7]),
+        .CEN(inst[19]),
+        .WEN(inst[18]),
         .D(D_xmem),
         .Q(input_sram_dout)
     );
 
     // Accumulation SRAM
-    sram_input acc_sram (
+    sram_output acc_sram (
         .CLK(clk),
-        .A(acc_sram_addr),
-        .CEN(acc_sram_cen),
-        .WEN(acc_sram_wen),
-        .D(data_out),
+        .A(inst[30:20]),
+        .CEN(inst[32]),
+        .WEN(inst[31]),
+        .D(acc_sram_din),
         .Q(acc_sram_dout)
     );
 
@@ -56,10 +54,10 @@ module core #(
         .clk(clk),
         .reset(reset),
         .inst(inst),
-        .data_in(input_sram_dout[bw*row-1:0]),
-        .data_in_acc(acc_sram_dout[psum_bw*col-1:0]),
+        .data_in(input_sram_dout),
+        .data_in_acc(acc_sram_dout),
         .data_out(data_out),
         .sfp_data_out(sfp_out)
     );
-
+    
   
