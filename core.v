@@ -1,5 +1,3 @@
-`include "corelet.v"
-`include "sram_input.v"
 
 module core #(
     parameter row = 8,
