@@ -152,8 +152,8 @@ for (i=1; i<col+1; i=i+1) begin : sfp_num
         .acc(sfp_acc),
         .relu(sfp_relu),
         .reset(sfp_reset),
-        .in(sfp_in[psum_bw*i-1:psum_bw*(i-1)]),
-        .out(sfp_out[psum_bw*i-1:psum_bw*(i-1)])
+        .in(sfp_in),
+        .out(sfp_out)
     );
 end
 
