@@ -1,6 +1,5 @@
 // Created by prof. Mingu Kang @VVIP Lab in UCSD ECE department
 // Please do not spread this code without permission 
-`include "mac_row.v"
 
 module mac_array (clk, reset, out_s, in_w, in_n, inst_w, valid);
 
