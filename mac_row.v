@@ -1,6 +1,5 @@
 // Created by prof. Mingu Kang @VVIP Lab in UCSD ECE department
 // Please do not spread this code without permission 
-`include "mac_tile.v"
 
 module mac_row (clk, out_s, in_w, in_n, valid, inst_w, reset);
 
