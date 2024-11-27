@@ -41,7 +41,7 @@ module core #(
         .A(acc_sram_addr),
         .CEN(acc_sram_cen),
         .WEN(acc_sram_wen),
-        .D(acc_sram_din),
+        .D(data_out),
         .Q(acc_sram_dout)
     );
 
@@ -62,86 +62,4 @@ module core #(
         .sfp_data_out(sfp_out)
     );
 
-    // Address and control logic generation 
-    address_generator addr_gen (
-        .clk(clk),
-        .reset(reset),
-        .inst(inst),
-        .input_sram_addr(input_sram_addr),
-        .input_sram_cen(input_sram_cen),
-        .input_sram_wen(input_sram_wen),
-        .input_sram_din(input_sram_din),
-        .acc_sram_addr(acc_sram_addr),
-        .acc_sram_cen(acc_sram_cen),
-        .acc_sram_wen(acc_sram_wen),
-        .acc_sram_din(acc_sram_din)
-    );
-
-    // OFIFO valid generation
-    reg ofifo_valid_reg;
-    always @(posedge clk or posedge reset) begin
-        if (reset)
-            ofifo_valid_reg <= 1'b0;
-        else
-            // Example condition - adjust as needed
-            ofifo_valid_reg <= (inst[6] == 1'b1); // OFIFO read enable
-    end
-    assign ofifo_valid = ofifo_valid_reg;
-endmodule
-
-// Modified address generator
-module address_generator (
-    input clk,
-    input reset,
-    input [33:0] inst,
-    
-    output reg [10:0] input_sram_addr,
-    output reg input_sram_cen,
-    output reg input_sram_wen,
-    output reg [31:0] input_sram_din,
-    
-    output reg [10:0] acc_sram_addr,
-    output reg acc_sram_cen,
-    output reg acc_sram_wen,
-    output reg [31:0] acc_sram_din
-);
-    always @(posedge clk or posedge reset) begin
-        if (reset) begin
-            // Reset addresses and control signals
-            input_sram_addr <= 0;
-            acc_sram_addr <= 0;
-            
-            // Disable SRAMs initially
-            input_sram_cen <= 1;
-            input_sram_wen <= 1;
-            acc_sram_cen <= 1;
-            acc_sram_wen <= 1;
-            
-            // Clear input and accumulation data
-            input_sram_din <= 32'b0;
-            acc_sram_din <= 32'b0;
-        end else begin
-            // Input SRAM control
-            // inst[4] - read, inst[5] - write
-            input_sram_cen <= ~(inst[4] | inst[5]);
-            input_sram_wen <= ~inst[5]; // Active low write enable
-            
-            if (inst[4]) // Read
-                input_sram_addr <= input_sram_addr + 1;
-            
-            if (inst[5]) // Write
-                input_sram_addr <= input_sram_addr + 1;
-            
-            // Accumulator SRAM control
-            // inst[3] - read, inst[2] - write
-            acc_sram_cen <= ~(inst[3] | inst[2]);
-            acc_sram_wen <= ~inst[2]; // Active low write enable
-            
-            if (inst[3]) // Read
-                acc_sram_addr <= acc_sram_addr + 1;
-            
-            if (inst[2]) // Write
-                acc_sram_addr <= acc_sram_addr + 1;
-        end
-    end
-endmodule
+  
