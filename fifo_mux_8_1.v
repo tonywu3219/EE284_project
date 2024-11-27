@@ -1,6 +1,5 @@
 // Created by prof. Mingu Kang @VVIP Lab in UCSD ECE department
 // Please do not spread this code without permission 
-`include "fifo_mux_2_1.v"
 
 module fifo_mux_8_1 (out, sel, in0, in1, in2, in3, in4, in5, in6, in7 );
 
