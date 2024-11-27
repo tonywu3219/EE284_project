@@ -11,10 +11,6 @@
 //?     1 - execute
 //?     0 - load
 
-`include "l0.v"
-`include "mac_array.v"
-`include "ofifo.v"
-`include "sfp.v"
 
 module corelet #(
     parameter row = 8,
