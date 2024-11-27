@@ -1,6 +1,5 @@
 // Created by prof. Mingu Kang @VVIP Lab in UCSD ECE department
 // Please do not spread this code without permission 
-`include "fifo_depth64.v"
 
 module ofifo (clk, in, out, rd, wr, o_full, reset, o_ready, o_valid);
 
