@@ -39,7 +39,7 @@ module core #(
         .A(inst[30:20]),
         .CEN(inst[32]),
         .WEN(inst[31]),
-        .D(acc_sram_din),
+        .D(data_out),
         .Q(acc_sram_dout)
     );
 
