@@ -31,7 +31,7 @@ module core #(
         .A(input_sram_addr),
         .CEN(input_sram_cen),
         .WEN(input_sram_wen),
-        .D(input_sram_din),
+        .D(D_xmem),
         .Q(input_sram_dout)
     );
 
